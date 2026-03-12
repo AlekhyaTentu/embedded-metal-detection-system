@@ -1,47 +1,55 @@
-Integrated Embedded System for Autonomous Metal Detection
-Electronics Corporation of India Limited (ECIL) | R&D Internship Project
 
-📌 Project Overview
-This repository contains the design, firmware, and simulation assets for a remotely operated robotic vehicle engineered for high-precision metal detection. The system leverages inductive sensing technology to bridge the gap between raw analog signals and digital control logic, providing a scalable prototype for autonomous landmine detection and geological surveying.
+# Integrated Embedded System for Autonomous Metal Detection
 
-📂 Repository Structure & File Mapping
-Note: To align with professional standards, I recommend renaming your files as follows:
+**R&D Project | Electronics Corporation of India Limited (ECIL)**
 
-Plaintext
-├── .assets/               # Project images and circuit diagrams for README
+## 📌 Technical Overview
+
+Engineered a sensor-integrated robotic vehicle designed for real-time metallic anomaly detection in high-risk environments. The system bridges raw analog inductive signals with digital control logic to automate landmine detection and geological surveying. Developed under the Computer Education Division of ECIL (Department of Atomic Energy), the project focuses on signal integrity, low-latency feedback, and remote telemetry.
+
+## 📂 Repository Structure
+
+```text
 ├── docs/
-│   └── Technical_Report.pdf   <-- [Rename: Metal Detection Robot Documentation.pdf]
+│   └── Technical_Report.pdf     # Full engineering documentation and R&D findings
 ├── firmware/
-│   ├── main.c             # System core logic and I/O initialization
-│   ├── motor_control.c    # L293D driver logic and PWM signaling
-│   └── sensor_input.h     # Inductive sensor threshold definitions
+│   ├── main.c                   # System core logic and I/O initialization
+│   ├── motor_control.c          # L293D driver logic and PWM signaling
+│   └── sensor_input.h           # Inductive sensor threshold and interrupt definitions
 ├── simulation/
-│   ├── schematics.pdsprj  # Proteus simulation design file
-│   └── circuit_layout.png # Visual representation of the hardware bus
-└── README.md              # Technical documentation
-🛠️ Technical Specifications
-Core Logic: ARM LPC2148 (32-bit ARM7TDMI-S) and Atmel AVR architecture.
+│   ├── schematics.pdsprj        # Proteus hardware simulation design file
+│   └── hardware_layout.png      # Visual trace and bus configuration
+└── README.md                    # Technical specifications and project summary
 
-Signal Ingestion: Inductive proximity sensor with a 0–8mm detection range, optimized for up to 7cm of ground penetration.
+```
 
-Power & Actuation: L293D H-Bridge motor driver managing a high-torque DC gear-motor configuration.
+## 🛠️ Engineering Stack & Specifications
 
-Telemetry: UART-based Bluetooth interface for remote telemetry and command execution.
+* **Microcontroller:** ARM LPC2148 (32-bit ARM7TDMI-S) / Atmel AVR Architecture.
+* **Sensor Fusion:** Inductive proximity sensing unit (Range: 0–8mm; Ground Penetration: 5–7cm).
+* **Actuation:** Dual L293D H-Bridge drivers managing 4x High-Torque DC gear motors.
+* **Telemetry:** UART-based HC-05 Bluetooth module for remote instruction execution.
+* **Toolchain:** Keil µVision (C-Compiler), Proteus (Hardware Simulation), Arduino IDE.
 
-Toolchain: Keil µVision (Compiler/Debugger), Proteus (Hardware Simulation).
+## ⚙️ Technical Implementation
 
-⚙️ Engineering Implementation
-1. Register-Level Firmware Design
+### 1. Register-Level Firmware Design
 
-The firmware was architected in Embedded C, focusing on low-latency I/O response. I implemented specific bit-masking on the IO0DIR and IO0PIN registers to manage the state machine for sensor interrupts and motor actuation.
+The control firmware was architected in **Embedded C**, utilizing direct register manipulation for high-speed I/O. I implemented bit-masking on the `IO0DIR` and `IO0PIN` registers to manage the state machine for sensor interrupts and motor actuation, ensuring minimal instruction cycle latency.
 
-2. Signal Integrity & Validation
+### 2. Signal Integrity & Detection Logic
 
-To ensure high-fidelity detection across varied metallic compositions (Iron, Aluminum, Copper), I developed a validation logic that filters out noise from the inductive coil, ensuring the buzzer alarm and LCD feedback trigger only upon verified material density thresholds.
+To ensure high-fidelity detection across varied metallic compositions (Iron, Aluminum, Copper), the logic filters coil induction noise. The system validates signal density thresholds before triggering the piezoelectric buzzer and 16x2 LCD dot-matrix feedback.
 
-🚀 Key Impacts
-Accuracy: Improved signal-to-noise ratio in detection logic, enabling consistent identification of metallic objects 7cm underground.
+### 3. Remote Telemetry
 
-Efficiency: Automated the data feedback loop, reducing the latency between physical detection and operator notification to near-zero.
+Implemented a wireless control radius of 15 meters using Bluetooth SPP (Serial Port Profile), allowing for safe operator distance during hazardous material sweep operations.
 
-Safety: Removed the human element from high-risk detection zones via a 15-meter stable remote control radius.
+## 🚀 Key Impacts
+
+* **Accuracy:** Optimized signal-to-noise ratios to enable consistent identification of sub-surface metallic objects at a depth of 7cm.
+* **Operational Safety:** Eliminated manual risk by transitioning detection to a remotely operated robotic platform.
+* **Latency:** Achieved near-zero millisecond latency between sensor triggering and operator notification via hardware interrupts.
+
+---
+
